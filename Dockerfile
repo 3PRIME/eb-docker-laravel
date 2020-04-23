@@ -20,6 +20,7 @@ RUN apt-get clean && apt-get update && apt-get install -y zlib1g-dev libicu-dev 
     libmagickwand-dev libmagickcore-dev imagemagick \
     git \
     sudo nano \
+    freetds-common freetds-bin unixodbc php7.3-sybase \
     --no-install-recommends \
     && docker-php-ext-configure intl \
     && docker-php-ext-install xml \
