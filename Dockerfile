@@ -12,7 +12,10 @@ COPY config/php/custom.ini /usr/local/etc/php/conf.d/
 # INSTALL DEPENDENCIES #
 ########################
 
-RUN apt-get clean && apt-get update && apt-get install -y zlib1g-dev libicu-dev libpq-dev wget gdebi xmlstarlet \
+RUN sudo apt-get clean && sudo apt-get update && sudo apt-get upgrade && sudo apt-get install software-properties-common
+RUN sudo add-apt-repository -y ppa:ondrej/php
+#RUN apt-get clean && apt-get update && apt-get install -y zlib1g-dev libicu-dev libpq-dev wget gdebi xmlstarlet \
+RUN apt-get install -y zlib1g-dev libicu-dev libpq-dev wget gdebi xmlstarlet \
     libfreetype6 xfonts-base xfonts-75dpi fonts-wqy-microhei ttf-wqy-microhei fonts-wqy-zenhei ttf-wqy-zenhei \
     libhiredis-dev libzip-dev \
     ghostscript libgs-dev \
