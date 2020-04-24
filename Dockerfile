@@ -12,10 +12,7 @@ COPY config/php/custom.ini /usr/local/etc/php/conf.d/
 # INSTALL DEPENDENCIES #
 ########################
 
-RUN sudo apt-get clean && sudo apt-get update && sudo apt-get upgrade && sudo apt-get install software-properties-common
-RUN sudo add-apt-repository -y ppa:ondrej/php
-#RUN apt-get clean && apt-get update && apt-get install -y zlib1g-dev libicu-dev libpq-dev wget gdebi xmlstarlet \
-RUN apt-get install -y zlib1g-dev libicu-dev libpq-dev wget gdebi xmlstarlet \
+RUN apt-get clean && apt-get update && apt-get install -y zlib1g-dev libicu-dev libpq-dev wget gdebi xmlstarlet \
     libfreetype6 xfonts-base xfonts-75dpi fonts-wqy-microhei ttf-wqy-microhei fonts-wqy-zenhei ttf-wqy-zenhei \
     libhiredis-dev libzip-dev \
     ghostscript libgs-dev \
@@ -23,7 +20,6 @@ RUN apt-get install -y zlib1g-dev libicu-dev libpq-dev wget gdebi xmlstarlet \
     libmagickwand-dev libmagickcore-dev imagemagick \
     git \
     sudo nano \
-    freetds-common freetds-bin unixodbc php7.3-sybase \
     --no-install-recommends \
     && docker-php-ext-configure intl \
     && docker-php-ext-install xml \
@@ -99,6 +95,14 @@ RUN mkdir -p /etc/cron.d
 
 RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb
 RUN gdebi --n wkhtmltox_0.12.5-1.stretch_amd64.deb
+
+
+#############################################
+# INSTALL SYBASE EXTENSION AND DEPENDENCIES #
+#############################################
+RUN apt-get clean && apt-get update && apt-get upgrade && apt-get install -y software-properties-common
+RUN add-apt-repository -y ppa:ondrej/php
+RUN apt-get install -y freetds-common freetds-bin unixodbc php7.3-sybase
 
 
 #################
