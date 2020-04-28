@@ -97,14 +97,6 @@ RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkh
 RUN gdebi --n wkhtmltox_0.12.5-1.stretch_amd64.deb
 
 
-#############################################
-# INSTALL SYBASE EXTENSION AND DEPENDENCIES #
-#############################################
-RUN apt-get clean && apt-get update && apt-get upgrade && apt-get install -y software-properties-common
-RUN add-apt-repository -y ppa:ondrej/php
-RUN apt-get install -y freetds-common freetds-bin unixodbc php7.3-sybase
-
-
 #################
 # SETUP LOGGING #
 #################
@@ -130,6 +122,13 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
         --install-dir=/usr/local/bin \
         --filename=composer
 
+#############################################
+# INSTALL SYBASE EXTENSION AND DEPENDENCIES #
+#############################################
+RUN rm /etc/apt/preferences.d/no-debian-php && apt-get update -y && apt-get install -y \
+    freetds-common \
+    freetds-bin unixodbc \
+    php7.3-sybase
 
 ################################
 # Define Mountable Directories #
