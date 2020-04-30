@@ -128,7 +128,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 RUN rm /etc/apt/preferences.d/no-debian-php && apt-get update -y && apt-get install -y \
     freetds-common \
     freetds-bin unixodbc \
-    php7.3-sybase
+    php7.3-sybase \
+    # copy the deb sybase pdo module to the docker location and enable it
+    && cp /etc/php/7.3/mods-available/pdo_dblib.ini /usr/local/etc/php/conf.d/pdo_dblib.ini \
+    && docker-php-ext-enable pdo_dblib
 
 ################################
 # Define Mountable Directories #
