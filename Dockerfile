@@ -129,8 +129,9 @@ RUN rm /etc/apt/preferences.d/no-debian-php && apt-get update -y && apt-get inst
     freetds-common \
     freetds-bin unixodbc \
     php7.3-sybase \
-    # copy the deb sybase pdo module to the main location
-    && cp /etc/php/7.3/mods-available/pdo_dblib.ini /usr/local/etc/php/conf.d/pdo_dblib.ini
+    # copy the deb sybase pdo module to the docker local/etc and symlink the extension to enable it
+    && cp /etc/php/7.3/mods-available/pdo_dblib.ini /usr/local/etc/php/conf.d/pdo_dblib.ini \
+    && ln -s /usr/lib/php/20180731/pdo_dblib.so /usr/local/lib/php/extensions/no-debug-non-zts-20180731/pdo_dblib.so
 
 ################################
 # Define Mountable Directories #
